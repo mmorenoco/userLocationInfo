@@ -17,8 +17,12 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family:  'Geomanist webfont';
+  src: url(fonts/Geomanist-Regular.otf);
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Geomanist webfont',Arial,sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
