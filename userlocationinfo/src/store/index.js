@@ -7,7 +7,7 @@ const url = 'https://6127f54fc2e8920017bc0f47.mockapi.io/api/v1/properties'
 
 export default new Vuex.Store({
     state: {
-        listOfProperties: [],
+        listOfProperties : [],
     },
     mutations: {
         setPropertiesList(state, listOfProperties) {
@@ -20,8 +20,8 @@ export default new Vuex.Store({
                 const response = await fetch(url)
                 console.log(response)
                 const properties = await response.json()
-                commit('listOfProperties', properties.data)
-                console.log(properties)
+                commit('setPropertiesList', properties.data)
+                console.log(properties[0].lat)
             } catch (e) {
                 console.log(e)
             }

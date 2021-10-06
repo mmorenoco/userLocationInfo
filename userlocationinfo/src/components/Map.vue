@@ -7,17 +7,18 @@
 </template>
 
 <script>
-import { Loader } from "@googlemaps/js-api-loader"
+import { mapActions } from 'vuex';
 
-// import { mapState } from 'vuex';
-// import { mapActions } from 'vuex';
+import { Loader } from "@googlemaps/js-api-loader"
 
 export default {
     name: 'Maps',
     methods: {
-        // ...mapActions('properties', ['updatePropertiesList']),
+        ...mapActions(['updatePropertiesList']),
+        showProperties() {
+            this.updatePropertiesList()
+        },
         loadMap() {
-
             const loader = new Loader({
                 apiKey: "",
                 version: "weekly",
@@ -38,15 +39,9 @@ export default {
                 const map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
                 new google.maps.Marker({
-                    position: { lat: -40.416729, lng: -3.703339},
+                    position: { lat: 40.2085, lng: -3.703339},
                     map: map,
                     title: "Madrid",
-                })
-
-                new google.maps.Marker({
-                    position: { lat: 36.67777, lng: -5.446},
-                    map: map,
-                    title: "Ubrique",
                 })
 
                 return map
@@ -57,12 +52,10 @@ export default {
             })
         }
     },
-    async mounted() {
-         await this.loadMap()
-    },
-    // computed: {
-    //     // ...mapState('properties', ['listOfProperties'])
-    // }
+    mounted() {
+        this.showProperties(),
+        this.loadMap()
+    }
 }
 </script>
 
