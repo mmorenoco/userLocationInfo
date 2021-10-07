@@ -25,6 +25,8 @@ export default {
                 libraries: ["places"]
             })
 
+
+
             const mapOptions = {
                 center: {
                     lat: 40.2085,
@@ -32,6 +34,9 @@ export default {
                 },
                 zoom: 6
             }
+
+            const markers = this.listOfProperties.map(el => [el.lat, el.long])
+            console.log(markers)
 
             loader
             .load()
