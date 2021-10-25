@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <Map />
+    <Places />
   </div>
 </template>
 
 <script>
 import Map from './components/Map.vue'
+import Places from './components/Places.vue'
 
 export default {
   name: 'App',
   components: {
-    Map
+    Map,
+    Places
   }
 }
 </script>

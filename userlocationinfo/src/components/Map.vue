@@ -19,7 +19,7 @@ export default {
             this.updatePropertiesList()
             console.log(this.listOfProperties, 'desde el componente')
         },
-        loadMapMarkers() {
+        initMap() {
 
             const markers = this.listOfProperties.map(el => ([el.lat, el.lon])) 
             console.log(markers, 'markers')
@@ -46,7 +46,7 @@ export default {
     },
     async mounted() {
         this.showProperties(),
-        this.loadMapMarkers()
+        this.initMap()
     },
     computed: {
         ...mapState(['listOfProperties'])
