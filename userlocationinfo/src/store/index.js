@@ -12,16 +12,20 @@ export default new Vuex.Store({
     mutations: {
         setPropertiesList(state, listOfProperties) {
             state.listOfProperties = listOfProperties
+            console.log(state.listOfProperties, 'desde la store')
+
         }
     },
     actions: {
         async updatePropertiesList({ commit }) {
             try {
                 const response = await fetch(url)
-                console.log(response)
+                console.log(response, 'response')
                 const properties = await response.json()
-                commit('setPropertiesList', properties.data)
-                console.log(properties[0].lat)
+                console.log(properties)
+                commit('setPropertiesList', properties)
+                
+                console.log(this.state.listOfProperties, 'properties after')
             } catch (e) {
                 console.log(e)
             }

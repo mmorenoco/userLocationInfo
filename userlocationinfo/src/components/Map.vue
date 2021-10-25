@@ -8,58 +8,48 @@
 
 <script>
 import { mapActions } from 'vuex';
-
-import { Loader } from "@googlemaps/js-api-loader"
+import { mapState } from 'vuex';
 
 export default {
-    name: 'Maps',
+    name: 'Map',
     methods: {
+        /* eslint-disable */
         ...mapActions(['updatePropertiesList']),
         showProperties() {
             this.updatePropertiesList()
+            console.log(this.listOfProperties, 'desde el componente')
         },
-        loadMap() {
-            const loader = new Loader({
-                apiKey: "",
-                version: "weekly",
-                libraries: ["places"]
-            })
+        loadMapMarkers() {
 
+            const markers = this.listOfProperties.map(el => ([el.lat, el.lon])) 
+            console.log(markers, 'markers')
 
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 40.4165, lng: -3.70256 },
+                zoom: 6,
+                mapTypeControl: false,
+                streetViewControl: false
+            });
 
-            const mapOptions = {
-                center: {
-                    lat: 40.2085,
-                    lng: -3.713
-                },
-                zoom: 6
+            for(let i=0;i<markers.length;i++){
+                console.log(markers[i])
+                const  myLatLng = { lat: parseFloat(markers[i][1]), lng: parseFloat(markers[i][0]) };
+                console.log(myLatLng, 'mi lat long')
+                new google.maps.Marker({
+                    position: myLatLng,
+                    map
+                });
             }
 
-            const markers = this.listOfProperties.map(el => [el.lat, el.long])
-            console.log(markers)
-
-            loader
-            .load()
-            .then((google) => {
-                const map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-                new google.maps.Marker({
-                    position: { lat: 40.2085, lng: -3.703339},
-                    map: map,
-                    title: "Madrid",
-                })
-
-                return map
-            })
-
-            .catch(e => {
-                console.log(e)
-            })
+            return map
         }
     },
-    mounted() {
+    async mounted() {
         this.showProperties(),
-        this.loadMap()
+        this.loadMapMarkers()
+    },
+    computed: {
+        ...mapState(['listOfProperties'])
     }
 }
 </script>
@@ -67,7 +57,7 @@ export default {
 <style>
     #map {
         margin: 0 auto;
-        height: 500px;
+        height: 600px;
         width: 90vw;
         border-radius: 2px;
         -webkit-box-shadow: 0px 0px 5px 0px rgba(31,35,38,1);
